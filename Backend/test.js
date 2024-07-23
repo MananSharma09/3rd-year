@@ -188,3 +188,20 @@
 
 // person1.greet();
 // person2.greet();
+// function tr(a,b,c)
+// {
+//     console.log(arguments);
+//     const arrowfunction=(a)=>{
+//         console.log(a);
+//         console.log(arguments);
+//     };
+//     arrowfunction();
+// }
+// tr(1,2,3,4,5);
+// var c=10;
+// var a=5;
+
+// var b=()=>{
+//     console.log(arguments);
+// }
+// b();
