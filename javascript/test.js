@@ -205,10 +205,10 @@
 //     console.log(arguments);
 // }
 // b();
-let i=1;
-let a = setInterval(()=>{
-    console.log(i*i);
-    i++;
-    if(i==7)
-        clearInterval(a);
-},2000);
+// let i=1;
+// let a = setInterval(()=>{
+//     console.log(i*i);
+//     i++;
+//     if(i==7)
+//         clearInterval(a);
+// },2000);
