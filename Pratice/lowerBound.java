@@ -10,7 +10,7 @@ public class lowerBound {
         while (low <= high) {
             int mid = (low + high) / 2;
             // maybe an answer
-            if (arr[mid] >= x) {
+            if (arr[mid] == x) {
                 ans = mid;
                 //look for smaller index on the left
                 high = mid - 1;
