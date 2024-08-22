@@ -1,14 +1,12 @@
 import express from 'express'
 
-import { creatUser, getUser, getUsers } from './controllers/userController.js';
+import { creatUser, deleteUser, getUser, getUsers, loginUser, updateUser } 
+from './controllers/userController.js';
+import { router } from './routes/userRoute.js';
 
 const app = express();
 app.use(express.urlencoded({extended:true}));
+app.use(express.json())
 
-app.post("/api/user", creatUser)
-
-app.get("/api/user",getUsers)
-
-app.get("/api/get/user/:id",getUser)
-
+app.use("/api", router)
 export default app;
