@@ -10,17 +10,18 @@
 //             sq=sq/10;
 //         }
 //         sq=n*n;
-//         int c=(int)Math.ceil(dig/2);
-//         int pow=(int)Math.pow(10,c);
-//         int x=sq%pow;
-//         int y=sq/pow;
-//         if(x==0 || y==0)
+//         for(int i=0;i<dig;i++)
 //         {
-//             return false;
-//         }
-//         else if(x+y==n)
-//         {
-//             return true;
+//             int pow=(int)Math.pow(10,i);
+//             // if(pow==n)
+//             // continue;
+//             int x=sq%pow;
+//             int y=sq/pow;
+//             if(x==0 || y==0) continue;
+//             if(x+y==n)
+//             {
+//                 return true;
+//             }
 //         }
 //         return false;
 //     }
@@ -28,6 +29,7 @@
 //     public static void main(String[] args) {
 //         Scanner sc=new Scanner(System.in);
 //         int n=sc.nextInt();
+//         sc.close();
 //         if(n==1)
 //         {
 //             System.out.println("Yes");
@@ -42,36 +44,42 @@
 
 import java.util.*;
 public class kaprekar {
+
+    public static boolean isKap(int n)
+    {
+        int sq=n*n;
+        int dig=0;
+        while (sq>0) 
+        {
+            dig++;
+            sq=sq/10;    
+        }
+        sq=n*n;
+        for(int i=0;i<dig;i++)
+        {
+            int pow=(int)Math.pow(10,i);
+            int x=sq%pow;
+            int y=sq/pow;
+            if(x==0 || y==0)
+            continue;
+            if(x+y==n)
+            return true;
+        }
+        return false;
+    }
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         int n=sc.nextInt();
-        sc.close();
         if(n==1)
         {
-            System.out.println("Yes");
-            return ;
+            System.out.println("No");
+            return;
         }
-        int sq=n*n,dig=0;
-        while(sq>0)
+        if(isKap(n))
         {
-            dig++;
-            sq=sq/10;
+            System.out.println("yes");
         }
-        sq=n*n;
-        int a=(int)Math.ceil(dig/2);
-        int pow=(int)Math.pow(10,a);
-        int x=sq%pow;
-        int y=sq/pow;
-        if(x==0 || y==0)
-        {
-            System.out.println("NO");
-        }
-        else if(x+y==n)
-        {
-            System.out.println("Yes");
-        }
-        else
-        {
+        else{
             System.out.println("No");
         }
     }

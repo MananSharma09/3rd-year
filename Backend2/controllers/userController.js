@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 import { User } from "../models/userModel.js";
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
 export const creatUser=async(req,res)=>{
     try{
         const {name,email,password,username,mobile}=req.body
-        console.log(req.body);
-        
+
         if(!name || !email || !password || !username || !mobile){
             return res.status(400).json({
                 success:false,
@@ -14,31 +14,87 @@ export const creatUser=async(req,res)=>{
             })
         }
 
-        const hash=await bcrypt.hash(password,10);
+        let user=await User.findOne({email})
+        if(user){
+            return res.status(400).json({
+                success: 400,
+                message: "User already Exists"
+            })
+        }
         
-
-        const user=await User.create({
+        user=await User.create({
             name,
             email,
-            password : hash,
+            password,
             username,
             mobile
         })
 
-        //! Sending response
-        res.status(201).json({
+        const token=await user.generateToken();
+
+        const options = {
+            expires : new Date(Date.now()+process.env.
+            COOKIE_EXPIRE *24*60*60*1000),
+            httpOnly: true,
+            sameSite: "none",
+            secure: true
+        }
+
+        res.cookie("token", token, options).status(201).json({
             success:true,
-            message: "User created successfully"
+            message: "User created successfully",
+            user,
+            token
         })
+
+        // res.status(200).json({
+        //     success: true,
+        //     message:"User created successfully"
+        // })
     }
-    catch(error)
-    {
+    catch(error){
         res.status(500).json({
-            success: false,
+            success:false,
             message: error.message
         })
     }
 }
+
+// export const creatUser=async(req,res)=>{
+//     try{
+//         const {name,email,password,username,mobile}=req.body
+//         console.log(req.body);
+        
+//         if(!name || !email || !password || !username || !mobile){
+//             return res.status(400).json({
+//                 success:false,
+//                 message: "Please enter all fields..."
+//             })
+//         }
+
+        
+//         const user=await User.create({
+//             name,
+//             email,
+//             password,
+//             username,
+//             mobile
+//         })
+
+//         //! Sending response
+//         res.status(201).json({
+//             success:true,
+//             message: "User created successfully"
+//         })
+//     }
+//     catch(error)
+//     {
+//         res.status(500).json({
+//             success: false,
+//             message: error.message
+//         })
+//     }
+// }
 
 export const getUsers =async(req,res)=>{
     try{
@@ -155,37 +211,92 @@ export const deleteUser=async(req,res)=>{
     }
 }
 
+// export const loginUser=async(req,res)=>{
+    // try{
+    //     const{email,password}=req.body;
+    //     if(!email || !password)
+    //     {
+    //         return res.status(404).json({
+    //             success: false,
+    //             message: "Please enter email and password fields"
+    //         })
+    //     }
+    //     const user=await User.findOne({email}).select("+password");
+    //     if(!user){
+    //         return res.status(404).json({
+    //            success: false,
+    //            message: "No user Found"
+    //        })
+    //    }
+
+    //     if(user.password!=password)
+    //     {
+    //         res.status(404).json({
+    //             success: false,
+    //             message: "Incorrect password"
+    //         })
+    //     }
+    //     res.status(200).json({
+    //         success: true,
+    //         message: "User logged in successfully"
+    //     })
+        
+    // }catch(error){
+    //     res.status(500).json({
+    //         success: false,
+    //         message: error.message
+    //     })
+    // }
+// }
+
 export const loginUser=async(req,res)=>{
     try{
-        const{email,password}=req.body;
+        const {email,password}=req.body
+
         if(!email || !password)
         {
-            return res.status(404).json({
-                success: false,
-                message: "Please enter email and password fields"
+            return res.status(400).json({
+                success:false,
+                message:"Please enter all fields"
             })
         }
+
         const user=await User.findOne({email}).select("+password");
+
         if(!user){
             return res.status(404).json({
-               success: false,
-               message: "No user Found"
-           })
-       }
-
-        if(user.password!=password)
-        {
-            res.status(404).json({
                 success: false,
-                message: "Incorrect password"
+                message: "User not found"
             })
         }
-        res.status(200).json({
-            success: true,
-            message: "User logged in successfully"
+
+        const isMatch=user.comparePassword(password);
+        if(!isMatch)
+        {
+            return res.status(401).json({
+                success:false,
+                message: "Invalid credentials"
+            })
+        }
+
+        const token=await user.generateToken();
+
+        const options={
+            expires: new Date(Date.now()+process.env.
+            COOKIE_EXPIRE*24*60*60*1000),
+            secure: true,
+            httpOnly:true,
+            sameSite:"none"
+        }
+
+        res.cookie("token",token,options).status(200).json({
+            success:true,
+            message:"User logged in successfully",
+            user,
+            token
         })
-        
-    }catch(error){
+    }
+    catch(error){
         res.status(500).json({
             success: false,
             message: error.message

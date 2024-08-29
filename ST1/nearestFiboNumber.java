@@ -4,7 +4,15 @@ public class nearestFiboNumber {
         Scanner sc=new Scanner(System.in);
         int n=sc.nextInt();
         sc.close();
-        int s=0,b=1;
-        
+        int first=0,second=1;
+        int third=first+second;
+        while(third<=n)
+        {
+            first =second;
+            second=third;
+            third=first+second;
+        }
+        int ans=Math.abs(third-n)>=Math.abs(second-n) ? second : third;
+        System.out.println(ans);
     }
 }

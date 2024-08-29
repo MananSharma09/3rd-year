@@ -14,4 +14,3 @@ router.put("/get/user/:id", updateUser)
 router.delete("/get/user/:id",deleteUser)
 
 router.post("/user/login",loginUser)
-
