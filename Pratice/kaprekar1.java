@@ -1,5 +1,5 @@
 import java.util.*;
-public class kaprekar {
+public class kaprekar1 {
     public static boolean isKaprekar(int n)
     {
         if(n==1) return true;

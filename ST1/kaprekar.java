@@ -70,6 +70,7 @@ public class kaprekar {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         int n=sc.nextInt();
+        sc.close();
         if(n==1)
         {
             System.out.println("No");
@@ -82,6 +83,5 @@ public class kaprekar {
         else{
             System.out.println("No");
         }
-        sc.close();
     }
 }

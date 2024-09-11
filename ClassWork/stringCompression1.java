@@ -1,5 +1,5 @@
 import java.util.*;
-public class stringCompression {
+public class stringCompression1 {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         int n=sc.nextInt();
