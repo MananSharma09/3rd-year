@@ -1,6 +1,3 @@
-
-import java.util.*;
-
 public class lowerBound {
 
     public static int lower(int []arr, int n, int x) {

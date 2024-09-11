@@ -213,3 +213,13 @@
 //         clearInterval(a);
 // },2000);
 
+// var animal="cat";
+// if(1)
+// {
+//     animal='Panda';
+//     function animal(){};
+//     console.log(animal);
+//     animal='Horse';
+//     console.log(animal);
+// }
+// console.log(animal);

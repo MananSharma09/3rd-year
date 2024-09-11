@@ -16,5 +16,6 @@ public class addOneTonumber {
             count--;
         }
         System.out.println(n+temp);   
+        sc.close();
     }
 }
