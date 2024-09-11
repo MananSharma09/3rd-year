@@ -82,5 +82,6 @@ public class kaprekar {
         else{
             System.out.println("No");
         }
+        sc.close();
     }
 }

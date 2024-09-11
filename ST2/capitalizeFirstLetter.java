@@ -19,5 +19,6 @@ public class capitalizeFirstLetter {
         Scanner sc=new Scanner(System.in);
         String input=sc.nextLine();
         System.out.println(capfun(input)); 
+        sc.close();
     }
 }
