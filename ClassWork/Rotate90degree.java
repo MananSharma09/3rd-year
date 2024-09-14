@@ -38,5 +38,6 @@ public class Rotate90degree {
             }
             System.out.println();
         }
+        sc.close();
     }    
 }
