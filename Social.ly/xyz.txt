@@ -1,0 +1,31 @@
+PORT = 4777
+
+MONGO_URI = "mongodb+srv://manansharma1209:zS1waezM8ZmSovFY@cluster0.ayhpi.mongodb.net/"
+
+# Usename : manansharma1209
+# Password : zS1waezM8ZmSovFY
+
+
+
+
+
+
+
+
+
+
+import mongoose from "mongoose"
+
+const connectDB = async ()=>{
+    try{
+        const con=await mongoose.connect(process.env.MONGO_URI)
+        console.log(`MongoDB connected ${con.connection.host}`);
+    }
+    catch(error)
+    {
+        console.log(error.message);
+        process.exit(1);
+    }
+}
+
+export default connectDB
