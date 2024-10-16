@@ -53,14 +53,14 @@ const userSchema=new mongoose.Schema({
         default : male
     },
     avatar:{
-            public_id:{
-                type : String,
-                default:'', 
-            },
-            url:{
-                type:String,
-                default:'',
-            }
+        public_id:{
+            type : String,
+            default:'', 
+        },
+        url:{
+            type:String,
+            default:'',
+        }
     },
     followers:[
         {
