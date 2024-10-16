@@ -59,13 +59,19 @@ const userSchema=new mongoose.Schema({
         },
         url:{
             type:String,
-            default:'',
-        }
+                default:'',
+            }
     },
     followers:[
         {
             type : mongoose.Schema.Types.ObjectId,
             ref:'User'
         }
-    ]
+    ],
+    following:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'User'
+        }
+    ],
 })
